@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 
 router.get('/:id', function(req, res) {
   var id = req.params.id; // get id form url
-
+  
   userModel.findById(id, function(err, result) {
     res.json(result);
   });

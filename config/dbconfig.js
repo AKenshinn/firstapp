@@ -10,6 +10,6 @@ var connection = mysql.createConnection({
 });
 
 //set databases
-connection.query('USE my_schema');
+// connection.query('USE my_schema');
 
 module.exports = connection; 
