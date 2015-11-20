@@ -1,7 +1,73 @@
 extends ../layout
 
+block script
+  script(type='text/javascript', src='/javascripts/userScript.js')
+
+block title
+  title= title
+
 block content
-  h1= title
-  p Welcome to #{title}
-  p
-  =data
+  div.row
+    div.col-sm-12
+      div.text-center
+        h1= title
+  div.row
+    div.col-sm-12
+      table.table.table-bordered
+        thead
+          tr
+            th.text-center ID
+            th.text-center USERNAME
+            th.text-center PASSWORD
+            th(colspan=2).text-center ACTION
+        tbody
+        //- loop data
+        each val, index in data
+          tr
+            td.text-center= val.id
+            td.text-center= val.username
+            td.text-center= val.password
+            td.text-center(colspan=2)
+              a.btn.btn-warning.update(data-toggle='modal', data-id=val.id, data-username=val.username, data-password=val.password, href='#modal-update') UPDATE
+              span(aria-hidden='true') &nbsp;
+              a.btn.btn-danger(href='/users/delete/' + val.id) DELETE
+  hr    
+          
+  //- section form
+  div.row
+    //- create
+    div.col-sm-6
+      h4 CREATE USER
+      form(action='/users/create', method='POST')
+        div.form-group
+          label(for='username') USERNAME :
+          input.form-control#username(type='text', name='username', placeholder='USERNAME')
+        div.form-group
+          label(for='password') PASSWORD :
+          input.form-control#password(type='text', name='password', placeholder='PASSWORD')
+        button.btn.btn-info(type='submit') CREATE
+  
+  //- update modal        
+  div.modal.fade#modal-update(tabindex='-1', role='dialog', aria-labelledby='myModalLabel')
+    div.modal-dialog(role='document')
+      div.modal-content
+        div.modal-header
+          button(type='button', class='close', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h3.modal-title#myModalLabel UPDATE USER
+        div.modal-body
+          form(action='/users/update', method='POST')
+            input#update-id(type='hidden', name='id')
+            div.form-group
+              label(for='username') USERNAME :
+              input.form-control#update-username(type='text', name='username', placeholder='USERNAME')
+            div.form-group
+              label(for='password') PASSWORD :
+              input.form-control#update-password(type='text', name='password', placeholder='PASSWORD')
+            button.btn.btn-info(type='submit') UPDATE
+
+
+
+
+
+

@@ -54,7 +54,7 @@ exports.findAll = function(done) {
     } 
 
     // check data
-    if(!rows.length) {
+    if(!rows) {
       console.log('Empty data in userModel.findAll !!');
       done(null, []);
     }
@@ -80,7 +80,7 @@ exports.findById = function(id, done) {
     }
 
     // check data
-    if(!rows.length) {
+    if(!rows) {
       console.log('Empty data in userModel.findAll !!');
       done(null, {});
     }

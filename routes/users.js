@@ -2,9 +2,15 @@ var express = require('express');
 var router = express.Router();
 var userModel = require('../model/userModel');
 
-router.get('/', function(req, res) {
+router.get('/main', function(req, res) {
   userModel.findAll(function(err, result) {
     res.render('index', { title: 'USER', data: result });
+  });
+});
+
+router.get('/', function(req, res) {
+  userModel.findAll(function(err, result) {
+    res.json(result);
   });
 });
 
